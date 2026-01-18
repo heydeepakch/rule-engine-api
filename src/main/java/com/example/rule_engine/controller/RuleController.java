@@ -1,14 +1,14 @@
 package com.example.rule_engine.controller;
 
+import com.example.rule_engine.model.Transaction;
 import com.example.rule_engine.service.RuleService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/rules")
 public class RuleController {
-    
+
     private final RuleService ruleService;
 
     public RuleController(RuleService ruleService) {
@@ -24,6 +24,11 @@ public class RuleController {
     @GetMapping
     public List<String> getRules() {
         return ruleService.getRules();
+    }
+
+    @PostMapping("/evaluate")
+    public List<Transaction> evaluate(@RequestBody List<Transaction> transactions) {
+        return ruleService.evaluateTransactions(transactions);
     }
 
 }
